@@ -6,6 +6,7 @@ using Microsoft.Msagl.Drawing;
 using Microsoft.Msagl.GraphViewerGdi;
 using System.Drawing.Imaging;
 using System.Globalization;
+using System.Linq;
 
 namespace VirusSimulation
 {
@@ -17,6 +18,7 @@ namespace VirusSimulation
         private int infectedTime;
         private SortedList adjacentNodes;
         private char infecter;
+        List<KeyValuePair<char, int>> infecters;
 
         // Constructor
         public Node(char x, int y)
@@ -26,6 +28,7 @@ namespace VirusSimulation
             infectedTime = Int32.MaxValue;
             adjacentNodes = new SortedList();
             infecter = '-';
+            infecters = new List<KeyValuePair<char, int>>();
         }
 
         // Setter
@@ -33,12 +36,24 @@ namespace VirusSimulation
         public void SetInfectedTime(int _infectedTime) { infectedTime = _infectedTime; }
         public void SetPopulation(int _population) { population = _population; }
         public void SetInfecter(char _infecter) { infecter = _infecter; }
+        public void AddInfecters(char _infecter, int days) {
+            bool exists = false;
+            foreach (var pair in infecters){
+                if (pair.Key == _infecter) {
+                    exists = true;
+                }
+            }
+            if (!exists) {
+                infecters.Add(new KeyValuePair<char, int>(_infecter, days));
+            }
+        }
 
         // Getter
         public int GetName() { return name; }
         public int GetInfectedTime() { return infectedTime; }
         public int GetPopulation() { return population; }
-        public int GetInfecter() { return infecter; }
+        public char GetInfecter() { return infecter; }
+        public List<KeyValuePair<char, int>> GetInfecters() { return infecters; }
         public List<char> GetAdjacents()
         {
             List<char> t = new List<char>();
@@ -102,6 +117,18 @@ namespace VirusSimulation
         // Graph view for GUI
         Graph graph = new Graph("graph");
 
+        // Edges memory for GUI
+        Dictionary<char, List<KeyValuePair<char, Edge>>> EdgeDict = new Dictionary<char, List<KeyValuePair<char, Edge>>>();
+
+        public void initEdgeDict(char city) {
+            Microsoft.Msagl.Drawing.Node cnode = graph.AddNode(Char.ToString(city));
+            cnode.Attr.Shape = Shape.Circle;
+            EdgeDict.Add(city, new List<KeyValuePair<char, Edge>>());
+        }
+        public void addEdgeDict(char from, char to) {
+            Edge e = graph.AddEdge(Char.ToString(from), Char.ToString(to));
+            EdgeDict[from].Add(new KeyValuePair<char, Edge>(to, e));
+        }
         public void readMap(string filename)
         {
             System.IO.StreamReader f = new System.IO.StreamReader(filename);
@@ -124,7 +151,8 @@ namespace VirusSimulation
                 char city2 = y[1][0];
                 
                 Nodes[city1].AddAdjacents(city2, ch);
-                graph.AddEdge(Char.ToString(city1), Char.ToString(city2));
+                addEdgeDict(city1, city2);
+                //graph.AddEdge(Char.ToString(city1), Char.ToString(city2));
             }
         }
         public void readPopulation(string filename)
@@ -149,8 +177,7 @@ namespace VirusSimulation
                 int p = int.Parse(y[1]);
                 char city = y[0][0];
                 Nodes.Add(city, new Node(city, p));
-                Microsoft.Msagl.Drawing.Node cnode = graph.AddNode(Char.ToString(city));
-                cnode.Attr.Shape = Shape.Circle;
+                initEdgeDict(city);
             }
             // Set the spreading time for the infecter
             Nodes[x[1][0]].SetInfectedTime(0);
@@ -158,9 +185,8 @@ namespace VirusSimulation
             InfectionProgress.Enqueue(x[1][0]);
         }
 
-        public List<KeyValuePair<char, double>> DoBFS(int rdays)
+        public void DoBFS(int rdays)
         {
-            List<KeyValuePair<char, double>> result = new List<KeyValuePair<char, double>>(); ;
             // Start the spread until nothing can be infected or the remaining days is 0
             while (InfectionProgress.Count > 0)
             {
@@ -175,6 +201,10 @@ namespace VirusSimulation
                     if (Nodes[infecter].Spread(target, rdays) > 1)
                     {
                         int days = (int)Math.Ceiling(Nodes[infecter].SpreadDay(target));
+
+                        // History
+                        Nodes[target].AddInfecters(infecter, days + Nodes[infecter].GetInfectedTime());
+                        
                         if (days == Nodes[infecter].SpreadDay(target)) days += 1;
                         // Check if the new spreading time is better than before
                         // and add the infected target's infecter
@@ -184,13 +214,17 @@ namespace VirusSimulation
                             Nodes[target].SetInfectedTime(days + Nodes[infecter].GetInfectedTime());
                             Nodes[target].SetInfecter(infecter);
                             InfectionProgress.Enqueue(target);
-                            Console.WriteLine("Success " + target + " " + Nodes[target].GetInfectedTime());
-                            result.Add(new KeyValuePair<char, double> (target, Nodes[target].GetInfectedTime()));
+                            
                         }
                     }
                 }
             }
-            return result;
+
+            foreach (var n in getNodes()) {
+                Console.Write("Success " + n + " " + Nodes[n].GetInfectedTime() + " by ");
+                Nodes[n].GetInfecters().ForEach(i => Console.Write(i.Key + "-" + i.Value + " "));
+                Console.WriteLine();
+            }
 
         }
 
@@ -202,6 +236,26 @@ namespace VirusSimulation
                 res.Add(pair.Key);
             }
             return res;
+        }
+
+        public List<KeyValuePair<char, double>> getInfections()
+        {
+            List<KeyValuePair<char, double>> res = new List<KeyValuePair<char, double>>();
+            foreach (var pair in Nodes)
+            {
+                res.Add(new KeyValuePair<char, double> (pair.Key, Nodes[pair.Key].GetInfectedTime()));
+            }
+            return res;
+        }
+
+        public Node getNode(char n) {
+            return Nodes[n];
+        }
+
+        public Edge getEdge(char from, char to)
+        {
+            var v = EdgeDict[from].FirstOrDefault(pair => pair.Key == to);
+            return v.Value;
         }
     }
 

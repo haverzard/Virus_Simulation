@@ -23,7 +23,7 @@ namespace VirusSimulation
         Boolean pop_read = false;
         Boolean map_read = false;
 
-        List<KeyValuePair<char, double>> infected;
+        List<KeyValuePair<char, double>> infections;
 
         Point mousedownpoint = Point.Empty;
 
@@ -50,20 +50,36 @@ namespace VirusSimulation
 
             int numdays = Decimal.ToInt32(ndays.Value);
 
-            foreach (char city in bfstool.getNodes()) {
-                g.FindNode(Char.ToString(city)).Attr.FillColor = Microsoft.Msagl.Drawing.Color.White;
+            foreach (char cityTo in bfstool.getNodes()) {
+                g.FindNode(Char.ToString(cityTo)).Attr.FillColor = Microsoft.Msagl.Drawing.Color.White;
+                foreach (KeyValuePair<char, int> pair in bfstool.getNode(cityTo).GetInfecters())
+                {
+                    char cityFrom = pair.Key;
+                    int days = pair.Value;
+
+                    Edge e = bfstool.getEdge(cityFrom, cityTo);
+                    
+                    if (days <= numdays)
+                    {
+                        e.Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
+                    }
+                    else {
+                        e.Attr.Color = Microsoft.Msagl.Drawing.Color.Black;
+                    }
+
+                }
             }
 
-            foreach (KeyValuePair<char, double> pair in infected) {
+            foreach (KeyValuePair<char, double> pair in infections) {
                 char city = pair.Key;
                 double time = pair.Value;
-                if (time < numdays)
+                if (time <= numdays)
                 {
                     g.FindNode(Char.ToString(city)).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
                 }
                 
             }
-            
+
             g.Attr.BackgroundColor = Microsoft.Msagl.Drawing.Color.DarkOliveGreen;
             Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format32bppPArgb);
             renderer.Render(bitmap);
@@ -81,7 +97,8 @@ namespace VirusSimulation
             if (map_read && pop_read) {
                 ndays.Enabled = true;
                 ndays.Value = 0;
-                infected = bfstool.DoBFS(100);
+                bfstool.DoBFS(100);
+                infections = bfstool.getInfections();
                 RenderGraph();
                 renderbutton.Enabled = false;
                 desc.Visible = false;
@@ -145,11 +162,13 @@ namespace VirusSimulation
                     loadmap.Enabled = true;
                 }
                 loadpop.Enabled = false;
+                desc.Text = "Graph not yet loaded.";
             }
             catch
             {
                 Console.WriteLine("error");
                 pop_read = false;
+                desc.Text = "Error loading population.";
             }
         }
 
@@ -168,10 +187,12 @@ namespace VirusSimulation
                     renderbutton.Enabled = true;
                 }
                 loadmap.Enabled = false;
+                desc.Text = "Graph not yet loaded.";
             }
             catch
             {
                 Console.WriteLine("error");
+                desc.Text = "Error loading map.";
                 map_read = false;
             }
         }
