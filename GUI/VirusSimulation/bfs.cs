@@ -120,15 +120,20 @@ namespace VirusSimulation
         // Edges memory for GUI
         Dictionary<char, List<KeyValuePair<char, Edge>>> EdgeDict = new Dictionary<char, List<KeyValuePair<char, Edge>>>();
 
+        // Menambah Node City dan menginisialisasi EdgeDict untuk City yang bersangkutan
         public void initEdgeDict(char city) {
             Microsoft.Msagl.Drawing.Node cnode = graph.AddNode(Char.ToString(city));
             cnode.Attr.Shape = Shape.Circle;
             EdgeDict.Add(city, new List<KeyValuePair<char, Edge>>());
         }
+
+        // Menambah Edge dari from ke to dan menyimpan di EdgeDict (utk GUI)
         public void addEdgeDict(char from, char to) {
             Edge e = graph.AddEdge(Char.ToString(from), Char.ToString(to));
             EdgeDict[from].Add(new KeyValuePair<char, Edge>(to, e));
         }
+
+        // Membaca config map dari filename
         public void readMap(string filename)
         {
             System.IO.StreamReader f = new System.IO.StreamReader(filename);
@@ -155,6 +160,8 @@ namespace VirusSimulation
                 //graph.AddEdge(Char.ToString(city1), Char.ToString(city2));
             }
         }
+
+        // Membaca config population dari filename
         public void readPopulation(string filename)
         {
             
@@ -185,6 +192,7 @@ namespace VirusSimulation
             InfectionProgress.Enqueue(x[1][0]);
         }
 
+        // Kode BFS utama
         public void DoBFS(int rdays)
         {
             // Start the spread until nothing can be infected or the remaining days is 0
@@ -228,7 +236,7 @@ namespace VirusSimulation
 
         }
 
-        public Graph getGraph() { return graph; }
+        // Mengembalikan semua kota yang ada
         public List<char> getNodes () {
             List<char> res = new List<char>();
             foreach (var pair in Nodes)
@@ -238,6 +246,7 @@ namespace VirusSimulation
             return res;
         }
 
+        // Mengembalikan list kota dan waktu terinfeksinya
         public List<KeyValuePair<char, double>> getInfections()
         {
             List<KeyValuePair<char, double>> res = new List<KeyValuePair<char, double>>();
@@ -248,15 +257,19 @@ namespace VirusSimulation
             return res;
         }
 
+        // Mengembalikan kota n
         public Node getNode(char n) {
             return Nodes[n];
         }
 
+        // Mengembalikan Edge yang menghubungkan from-to
         public Edge getEdge(char from, char to)
         {
             var v = EdgeDict[from].FirstOrDefault(pair => pair.Key == to);
             return v.Value;
         }
+
+        public Graph getGraph() { return graph; }
     }
 
 

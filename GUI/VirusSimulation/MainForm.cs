@@ -20,11 +20,11 @@ namespace VirusSimulation
     {
         BFSer bfstool;
 
+        // Boolean pembacaan konfigurasi
         Boolean pop_read = false;
         Boolean map_read = false;
 
-        List<KeyValuePair<char, double>> infections;
-
+        // Drag
         Point mousedownpoint = Point.Empty;
 
         public MainForm()
@@ -33,13 +33,16 @@ namespace VirusSimulation
         }
 
 
+        // Tampilkan Graph
         private void RenderGraph()
         {
+
+            // Membuat graph dan renderer utnuk graph
             Graph g = bfstool.getGraph();
-            //Prekondisi: sudah load graph.txt dan read=true
             GraphRenderer renderer = new GraphRenderer(g);
             renderer.CalculateLayout();
 
+            // Setup ukuran graph
             int height = 400;
             int width = (int)(g.Width * (height / g.Height));
 
@@ -50,8 +53,12 @@ namespace VirusSimulation
 
             int numdays = Decimal.ToInt32(ndays.Value);
 
+            // Untuk setiap kota
             foreach (char cityTo in bfstool.getNodes()) {
+                // Warnai kota tsb putih pada graph
                 g.FindNode(Char.ToString(cityTo)).Attr.FillColor = Microsoft.Msagl.Drawing.Color.White;
+
+                // Ambil kota yang menginfeksinya dan berapa hari sebelum infeksi
                 foreach (KeyValuePair<char, int> pair in bfstool.getNode(cityTo).GetInfecters())
                 {
                     char cityFrom = pair.Key;
@@ -61,44 +68,51 @@ namespace VirusSimulation
                     
                     if (days <= numdays)
                     {
+                        // Warnai edge merah jika pada hari sudah terinfeksi pada numdays 
                         e.Attr.Color = Microsoft.Msagl.Drawing.Color.Red;
                     }
                     else {
+                        // Warnai edge hitam jika pada hari sudah terinfeksi pada numdays 
                         e.Attr.Color = Microsoft.Msagl.Drawing.Color.Black;
                     }
 
                 }
             }
 
-            foreach (KeyValuePair<char, double> pair in infections) {
+
+            // Untuk setiap pasangan kota dan waktu sampai kota tersebut terinfeksi
+            foreach (KeyValuePair<char, double> pair in bfstool.getInfections()) {
                 char city = pair.Key;
                 double time = pair.Value;
                 if (time <= numdays)
                 {
+                    // Warnai node merah jika terinfeksi
                     g.FindNode(Char.ToString(city)).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
                 }
                 
             }
 
+            // Render gambar, masukkan ke picturebox picbox
             g.Attr.BackgroundColor = Microsoft.Msagl.Drawing.Color.DarkOliveGreen;
             Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format32bppPArgb);
             renderer.Render(bitmap);
             picbox.Image = bitmap;
         }
 
+        // Tombol Exit
         private void exit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-
+       
+        // Event Tombol Show ditekan
         private void renderbutton_Click(object sender, EventArgs e)
         {
             if (map_read && pop_read) {
                 ndays.Enabled = true;
                 ndays.Value = 0;
                 bfstool.DoBFS(100);
-                infections = bfstool.getInfections();
                 RenderGraph();
                 renderbutton.Enabled = false;
                 desc.Visible = false;
@@ -106,11 +120,13 @@ namespace VirusSimulation
 
         }
 
+        // Drag
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
             mousedownpoint = new Point(e.X, e.Y);
         }
 
+        //Drag
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
         {
 
@@ -121,38 +137,43 @@ namespace VirusSimulation
 
         }
 
+        //Drag
         private void MainForm_MouseUp(object sender, MouseEventArgs e)
         {
             mousedownpoint = Point.Empty;
         }
 
+        //Drag
         private void topmenu_MouseDown(object sender, MouseEventArgs e)
         {
             MainForm_MouseDown(this, e);
         }
 
+        //Drag
         private void topmenu_MouseUp(object sender, MouseEventArgs e)
         {
             MainForm_MouseUp(this, e);
         }
 
+        //Drag
         private void topmenu_MouseMove(object sender, MouseEventArgs e)
         {
             MainForm_MouseMove(this, e);
         }
 
-
+        //Drag
         private void MainForm_Load(object sender, EventArgs e)
         {
             bfstool = new BFSer();
         }
 
+        // Dialogbox Load Population
         private void loadpop_Click(object sender, EventArgs e)
         {
             txtloader.FileName = "pop.txt";
             txtloader.ShowDialog();
 
-            // Read the file and display it line by line.  
+            // Read the population file  
             try
             {
                 bfstool.readPopulation(txtloader.FileName);
@@ -166,18 +187,18 @@ namespace VirusSimulation
             }
             catch
             {
-                Console.WriteLine("error");
                 pop_read = false;
                 desc.Text = "Error loading population.";
             }
         }
 
+        // Dialogbox Load Map
         private void loadmap_Click(object sender, EventArgs e)
         {
             txtloader.FileName = "map.txt";
             txtloader.ShowDialog();
 
-            // Read the file and display it line by line.  
+            // Read the map file  
             try
             {
                 bfstool.readMap(txtloader.FileName);
@@ -191,14 +212,15 @@ namespace VirusSimulation
             }
             catch
             {
-                Console.WriteLine("error");
                 desc.Text = "Error loading map.";
                 map_read = false;
             }
         }
 
+        // Event Tombol Reset Ditekan
         private void resetbutton_Click(object sender, EventArgs e)
         {
+            // Reset semua Value
             pop_read = false;
             map_read = false;
             loadpop.Enabled = true;
@@ -208,10 +230,13 @@ namespace VirusSimulation
             ndays.Enabled = false;
             picbox.Image = null;
             desc.Visible = true;
+
+            // Reset bfstool
             bfstool = new BFSer();
         }
 
 
+        // Event Perubahan nilai ndays
         private void ndays_ValueChanged(object sender, EventArgs e)
         {
             RenderGraph();

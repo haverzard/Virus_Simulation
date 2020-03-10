@@ -55,9 +55,9 @@
             this.loadpop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loadpop.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loadpop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.loadpop.Location = new System.Drawing.Point(559, 151);
+            this.loadpop.Location = new System.Drawing.Point(559, 153);
             this.loadpop.Name = "loadpop";
-            this.loadpop.Size = new System.Drawing.Size(154, 47);
+            this.loadpop.Size = new System.Drawing.Size(151, 47);
             this.loadpop.TabIndex = 0;
             this.loadpop.Text = "Load Population";
             this.loadpop.UseVisualStyleBackColor = false;
@@ -75,9 +75,9 @@
             this.renderbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.renderbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.renderbutton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.renderbutton.Location = new System.Drawing.Point(559, 257);
+            this.renderbutton.Location = new System.Drawing.Point(559, 259);
             this.renderbutton.Name = "renderbutton";
-            this.renderbutton.Size = new System.Drawing.Size(75, 47);
+            this.renderbutton.Size = new System.Drawing.Size(72, 47);
             this.renderbutton.TabIndex = 2;
             this.renderbutton.Text = "Show";
             this.renderbutton.UseVisualStyleBackColor = false;
@@ -161,9 +161,9 @@
             this.loadmap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loadmap.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loadmap.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.loadmap.Location = new System.Drawing.Point(559, 204);
+            this.loadmap.Location = new System.Drawing.Point(559, 206);
             this.loadmap.Name = "loadmap";
-            this.loadmap.Size = new System.Drawing.Size(154, 47);
+            this.loadmap.Size = new System.Drawing.Size(151, 47);
             this.loadmap.TabIndex = 8;
             this.loadmap.Text = "Load Map";
             this.loadmap.UseVisualStyleBackColor = false;
@@ -176,9 +176,9 @@
             this.resetbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.resetbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.resetbutton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.resetbutton.Location = new System.Drawing.Point(640, 257);
+            this.resetbutton.Location = new System.Drawing.Point(640, 259);
             this.resetbutton.Name = "resetbutton";
-            this.resetbutton.Size = new System.Drawing.Size(73, 47);
+            this.resetbutton.Size = new System.Drawing.Size(70, 47);
             this.resetbutton.TabIndex = 9;
             this.resetbutton.Text = "Reset";
             this.resetbutton.UseVisualStyleBackColor = false;
@@ -189,7 +189,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.ForeColor = System.Drawing.Color.GreenYellow;
-            this.label1.Location = new System.Drawing.Point(556, 342);
+            this.label1.Location = new System.Drawing.Point(556, 344);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 17);
             this.label1.TabIndex = 12;
@@ -198,9 +198,9 @@
             // ndays
             // 
             this.ndays.Enabled = false;
-            this.ndays.Location = new System.Drawing.Point(651, 339);
+            this.ndays.Location = new System.Drawing.Point(651, 341);
             this.ndays.Name = "ndays";
-            this.ndays.Size = new System.Drawing.Size(62, 22);
+            this.ndays.Size = new System.Drawing.Size(59, 22);
             this.ndays.TabIndex = 13;
             this.ndays.ValueChanged += new System.EventHandler(this.ndays_ValueChanged);
             // 
