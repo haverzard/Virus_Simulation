@@ -149,7 +149,8 @@ namespace VirusSimulation
                 int p = int.Parse(y[1]);
                 char city = y[0][0];
                 Nodes.Add(city, new Node(city, p));
-                graph.AddNode(Char.ToString(city));
+                Microsoft.Msagl.Drawing.Node cnode = graph.AddNode(Char.ToString(city));
+                cnode.Attr.Shape = Shape.Circle;
             }
             // Set the spreading time for the infecter
             Nodes[x[1][0]].SetInfectedTime(0);
@@ -183,7 +184,7 @@ namespace VirusSimulation
                             Nodes[target].SetInfectedTime(days + Nodes[infecter].GetInfectedTime());
                             Nodes[target].SetInfecter(infecter);
                             InfectionProgress.Enqueue(target);
-                            //Console.WriteLine("Success " + target + " " + Nodes[target].GetInfectedTime());
+                            Console.WriteLine("Success " + target + " " + Nodes[target].GetInfectedTime());
                             result.Add(new KeyValuePair<char, double> (target, Nodes[target].GetInfectedTime()));
                         }
                     }

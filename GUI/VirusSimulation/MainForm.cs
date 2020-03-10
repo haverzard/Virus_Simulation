@@ -63,8 +63,8 @@ namespace VirusSimulation
                 }
                 
             }
-
-            g.Attr.BackgroundColor = Microsoft.Msagl.Drawing.Color.DarkSlateGray;
+            
+            g.Attr.BackgroundColor = Microsoft.Msagl.Drawing.Color.DarkOliveGreen;
             Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format32bppPArgb);
             renderer.Render(bitmap);
             picbox.Image = bitmap;
@@ -76,11 +76,6 @@ namespace VirusSimulation
         }
 
 
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-
-        }
-
         private void renderbutton_Click(object sender, EventArgs e)
         {
             if (map_read && pop_read) {
@@ -89,6 +84,7 @@ namespace VirusSimulation
                 infected = bfstool.DoBFS(100);
                 RenderGraph();
                 renderbutton.Enabled = false;
+                desc.Visible = false;
             }
 
         }
@@ -136,13 +132,13 @@ namespace VirusSimulation
 
         private void loadpop_Click(object sender, EventArgs e)
         {
-            openFileDialog1.FileName = "graph.txt";
-            openFileDialog1.ShowDialog();
+            txtloader.FileName = "pop.txt";
+            txtloader.ShowDialog();
 
             // Read the file and display it line by line.  
             try
             {
-                bfstool.readPopulation(openFileDialog1.FileName);
+                bfstool.readPopulation(txtloader.FileName);
                 pop_read = true;
                 if (pop_read)
                 {
@@ -159,13 +155,13 @@ namespace VirusSimulation
 
         private void loadmap_Click(object sender, EventArgs e)
         {
-            openFileDialog1.FileName = "graph.txt";
-            openFileDialog1.ShowDialog();
+            txtloader.FileName = "map.txt";
+            txtloader.ShowDialog();
 
             // Read the file and display it line by line.  
             try
             {
-                bfstool.readMap(openFileDialog1.FileName);
+                bfstool.readMap(txtloader.FileName);
                 map_read = true;
                 if (map_read && pop_read)
                 {
@@ -189,16 +185,16 @@ namespace VirusSimulation
             renderbutton.Enabled = false;
             ndays.Value = 0;
             ndays.Enabled = false;
+            picbox.Image = null;
+            desc.Visible = true;
+            bfstool = new BFSer();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void ndays_ValueChanged(object sender, EventArgs e)
         {
             RenderGraph();
         }
+
     }
 }

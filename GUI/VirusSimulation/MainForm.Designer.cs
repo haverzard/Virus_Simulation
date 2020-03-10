@@ -30,7 +30,7 @@
         {
             this.loadpop = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.txtloader = new System.Windows.Forms.OpenFileDialog();
             this.renderbutton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.exit = new System.Windows.Forms.Button();
@@ -42,6 +42,7 @@
             this.resetbutton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.ndays = new System.Windows.Forms.NumericUpDown();
+            this.desc = new System.Windows.Forms.Label();
             this.topmenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ndays)).BeginInit();
@@ -51,7 +52,7 @@
             // 
             this.loadpop.BackColor = System.Drawing.Color.GreenYellow;
             this.loadpop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.loadpop.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.loadpop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loadpop.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loadpop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.loadpop.Location = new System.Drawing.Point(559, 151);
@@ -62,17 +63,16 @@
             this.loadpop.UseVisualStyleBackColor = false;
             this.loadpop.Click += new System.EventHandler(this.loadpop_Click);
             // 
-            // openFileDialog1
+            // txtloader
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
+            this.txtloader.FileName = "loader";
             // 
             // renderbutton
             // 
             this.renderbutton.BackColor = System.Drawing.Color.GreenYellow;
             this.renderbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.renderbutton.Enabled = false;
-            this.renderbutton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.renderbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.renderbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.renderbutton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.renderbutton.Location = new System.Drawing.Point(559, 257);
@@ -128,17 +128,17 @@
             this.title.AutoSize = true;
             this.title.BackColor = System.Drawing.Color.Transparent;
             this.title.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.title.Font = new System.Drawing.Font("Montserrat", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.title.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.title.ForeColor = System.Drawing.Color.GreenYellow;
-            this.title.Location = new System.Drawing.Point(272, 11);
+            this.title.Location = new System.Drawing.Point(286, 12);
             this.title.Name = "title";
-            this.title.Size = new System.Drawing.Size(258, 33);
+            this.title.Size = new System.Drawing.Size(217, 28);
             this.title.TabIndex = 2;
             this.title.Text = "VIRUS SIMULATION";
             // 
             // picbox
             // 
-            this.picbox.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.picbox.BackColor = System.Drawing.Color.DarkOliveGreen;
             this.picbox.Location = new System.Drawing.Point(2, 48);
             this.picbox.Name = "picbox";
             this.picbox.Size = new System.Drawing.Size(500, 509);
@@ -158,7 +158,7 @@
             this.loadmap.BackColor = System.Drawing.Color.GreenYellow;
             this.loadmap.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.loadmap.Enabled = false;
-            this.loadmap.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.loadmap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.loadmap.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loadmap.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.loadmap.Location = new System.Drawing.Point(559, 204);
@@ -173,7 +173,7 @@
             // 
             this.resetbutton.BackColor = System.Drawing.Color.GreenYellow;
             this.resetbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.resetbutton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.resetbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.resetbutton.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.resetbutton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.resetbutton.Location = new System.Drawing.Point(640, 257);
@@ -188,13 +188,12 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.ForeColor = System.Drawing.SystemColors.Control;
+            this.label1.ForeColor = System.Drawing.Color.GreenYellow;
             this.label1.Location = new System.Drawing.Point(556, 342);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 17);
             this.label1.TabIndex = 12;
             this.label1.Text = "Num of Days:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // ndays
             // 
@@ -205,12 +204,25 @@
             this.ndays.TabIndex = 13;
             this.ndays.ValueChanged += new System.EventHandler(this.ndays_ValueChanged);
             // 
+            // desc
+            // 
+            this.desc.AutoSize = true;
+            this.desc.BackColor = System.Drawing.Color.DarkOliveGreen;
+            this.desc.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.desc.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.desc.Location = new System.Drawing.Point(128, 262);
+            this.desc.Name = "desc";
+            this.desc.Size = new System.Drawing.Size(230, 28);
+            this.desc.TabIndex = 14;
+            this.desc.Text = "Graph not yet loaded.";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(747, 554);
+            this.Controls.Add(this.desc);
             this.Controls.Add(this.ndays);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.resetbutton);
@@ -239,7 +251,7 @@
         private System.Windows.Forms.Button loadpop;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Button exit;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.OpenFileDialog txtloader;
         private System.Windows.Forms.Button renderbutton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel topmenu;
@@ -250,6 +262,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown ndays;
         private System.Windows.Forms.Label title;
+        private System.Windows.Forms.Label desc;
     }
 }
 
