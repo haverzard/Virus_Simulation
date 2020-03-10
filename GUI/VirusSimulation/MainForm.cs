@@ -242,5 +242,9 @@ namespace VirusSimulation
             RenderGraph();
         }
 
+        private void picbox_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
