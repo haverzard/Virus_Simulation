@@ -93,7 +93,7 @@ namespace VirusSimulation
             }
 
             // Render gambar, masukkan ke picturebox picbox
-            g.Attr.BackgroundColor = Microsoft.Msagl.Drawing.Color.DarkOliveGreen;
+            g.Attr.BackgroundColor = Microsoft.Msagl.Drawing.Color.DarkSeaGreen;
             Bitmap bitmap = new Bitmap(width, height, PixelFormat.Format32bppPArgb);
             renderer.Render(bitmap);
             picbox.Image = bitmap;
@@ -115,6 +115,8 @@ namespace VirusSimulation
                 bfstool.DoBFS(100);
                 RenderGraph();
                 renderbutton.Enabled = false;
+                renderbutton.BackColor = System.Drawing.Color.DarkOliveGreen;
+                resetbutton.BackColor = System.Drawing.Color.YellowGreen;
                 desc.Visible = false;
             }
 
@@ -124,6 +126,7 @@ namespace VirusSimulation
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
             mousedownpoint = new Point(e.X, e.Y);
+            Console.WriteLine("hehe");
         }
 
         //Drag
@@ -164,6 +167,7 @@ namespace VirusSimulation
         //Drag
         private void MainForm_Load(object sender, EventArgs e)
         {
+            this.Location = Properties.Settings.Default.MainForm_Location;
             bfstool = new BFSer();
         }
 
@@ -181,8 +185,10 @@ namespace VirusSimulation
                 if (pop_read)
                 {
                     loadmap.Enabled = true;
+                    loadmap.BackColor = System.Drawing.Color.YellowGreen;
                 }
                 loadpop.Enabled = false;
+                loadpop.BackColor = System.Drawing.Color.DarkOliveGreen;
                 desc.Text = "Graph not yet loaded.";
             }
             catch
@@ -206,8 +212,10 @@ namespace VirusSimulation
                 if (map_read && pop_read)
                 {
                     renderbutton.Enabled = true;
+                    renderbutton.BackColor = System.Drawing.Color.YellowGreen;
                 }
                 loadmap.Enabled = false;
+                loadmap.BackColor = System.Drawing.Color.DarkOliveGreen;
                 desc.Text = "Graph not yet loaded.";
             }
             catch
@@ -221,9 +229,11 @@ namespace VirusSimulation
         private void resetbutton_Click(object sender, EventArgs e)
         {
             // Reset semua Value
+            resetbutton.BackColor = System.Drawing.Color.DarkOliveGreen;
             pop_read = false;
             map_read = false;
             loadpop.Enabled = true;
+            loadpop.BackColor = System.Drawing.Color.YellowGreen;
             loadmap.Enabled = false;
             renderbutton.Enabled = false;
             ndays.Value = 0;
@@ -240,11 +250,6 @@ namespace VirusSimulation
         private void ndays_ValueChanged(object sender, EventArgs e)
         {
             RenderGraph();
-        }
-
-        private void picbox_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

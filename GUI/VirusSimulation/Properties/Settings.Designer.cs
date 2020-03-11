@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Drawing;
+
 namespace VirusSimulation.Properties
 {
 
@@ -26,5 +28,7 @@ namespace VirusSimulation.Properties
                 return defaultInstance;
             }
         }
+
+        public Point MainForm_Location { get; internal set; }
     }
 }

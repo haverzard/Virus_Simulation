@@ -55,26 +55,6 @@ namespace VirusSimulation
         {
             mousedownpoint = Point.Empty;
         }
-
-        //Drag
-        private void topmenu_MouseDown(object sender, MouseEventArgs e)
-        {
-            MainFormHome_MouseDown(this, e);
-        }
-
-        //Drag
-        private void topmenu_MouseUp(object sender, MouseEventArgs e)
-        {
-            MainFormHome_MouseUp(this, e);
-        }
-
-        //Drag
-        private void topmenu_MouseMove(object sender, MouseEventArgs e)
-        {
-            MainFormHome_MouseMove(this, e);
-        }
-
-
         
         private void InitializeComponent()
         {
@@ -99,14 +79,19 @@ namespace VirusSimulation
             // MainFormHome
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackColor = System.Drawing.Color.White;
             this.BackgroundImage = global::VirusSimulation.Properties.Resources.cover;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(544, 434);
             this.ControlBox = false;
             this.Controls.Add(this.Start);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MainFormHome";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormHome_Closing);
             this.Load += new System.EventHandler(this.MainFormHome_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainFormHome_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainFormHome_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainFormHome_MouseUp);
             this.ResumeLayout(false);
 
         }
@@ -114,6 +99,11 @@ namespace VirusSimulation
         private void MainFormHome_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void MainFormHome_Closing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.MainForm_Location = this.Location;
         }
 
         private void button1_Click(object sender, EventArgs e)
