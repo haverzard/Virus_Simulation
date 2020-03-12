@@ -54,14 +54,14 @@ namespace VirusSimulation
             int numdays = Decimal.ToInt32(ndays.Value);
 
             // Untuk setiap kota
-            foreach (char cityTo in bfstool.getNodes()) {
+            foreach (string cityTo in bfstool.getNodes()) {
                 // Warnai kota tsb putih pada graph
-                g.FindNode(Char.ToString(cityTo)).Attr.FillColor = Microsoft.Msagl.Drawing.Color.White;
+                g.FindNode(cityTo).Attr.FillColor = Microsoft.Msagl.Drawing.Color.White;
 
                 // Ambil kota yang menginfeksinya dan berapa hari sebelum infeksi
-                foreach (KeyValuePair<char, int> pair in bfstool.getNode(cityTo).GetInfecters())
+                foreach (KeyValuePair<string, int> pair in bfstool.getNode(cityTo).GetInfecters())
                 {
-                    char cityFrom = pair.Key;
+                    string cityFrom = pair.Key;
                     int days = pair.Value;
 
                     Edge e = bfstool.getEdge(cityFrom, cityTo);
@@ -81,13 +81,13 @@ namespace VirusSimulation
 
 
             // Untuk setiap pasangan kota dan waktu sampai kota tersebut terinfeksi
-            foreach (KeyValuePair<char, double> pair in bfstool.getInfections()) {
-                char city = pair.Key;
+            foreach (KeyValuePair<string, double> pair in bfstool.getInfections()) {
+                string city = pair.Key;
                 double time = pair.Value;
                 if (time <= numdays)
                 {
                     // Warnai node merah jika terinfeksi
-                    g.FindNode(Char.ToString(city)).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
+                    g.FindNode(city).Attr.FillColor = Microsoft.Msagl.Drawing.Color.Red;
                 }
                 
             }
