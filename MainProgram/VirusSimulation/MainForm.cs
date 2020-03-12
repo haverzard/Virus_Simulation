@@ -102,6 +102,7 @@ namespace VirusSimulation
         // Tombol Exit
         private void exit_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default.Page = "exit";
             this.Close();
         }
 
@@ -249,6 +250,13 @@ namespace VirusSimulation
         private void ndays_ValueChanged(object sender, EventArgs e)
         {
             RenderGraph();
+        }
+
+        private void back_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Page = "home";
+            Properties.Settings.Default.MainForm_Location = this.Location;
+            Close();
         }
     }
 }

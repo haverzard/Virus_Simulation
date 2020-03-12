@@ -35,6 +35,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.exit = new System.Windows.Forms.Button();
             this.topmenu = new System.Windows.Forms.Panel();
+            this.back = new System.Windows.Forms.Button();
+            this.title = new System.Windows.Forms.Label();
             this.picbox = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.loadmap = new System.Windows.Forms.Button();
@@ -42,7 +44,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.ndays = new System.Windows.Forms.NumericUpDown();
             this.desc = new System.Windows.Forms.Label();
-            this.title = new System.Windows.Forms.Label();
             this.topmenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ndays)).BeginInit();
@@ -112,6 +113,7 @@
             // 
             // topmenu
             // 
+            this.topmenu.Controls.Add(this.back);
             this.topmenu.Controls.Add(this.title);
             this.topmenu.Controls.Add(this.exit);
             this.topmenu.Dock = System.Windows.Forms.DockStyle.Top;
@@ -122,6 +124,38 @@
             this.topmenu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.topmenu_MouseDown);
             this.topmenu.MouseMove += new System.Windows.Forms.MouseEventHandler(this.topmenu_MouseMove);
             this.topmenu.MouseUp += new System.Windows.Forms.MouseEventHandler(this.topmenu_MouseUp);
+            // 
+            // back
+            // 
+            this.back.BackColor = System.Drawing.Color.Transparent;
+            this.back.BackgroundImage = global::VirusSimulation.Properties.Resources.back;
+            this.back.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.back.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.back.FlatAppearance.BorderSize = 0;
+            this.back.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.back.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.back.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.back.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.back.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.back.Location = new System.Drawing.Point(12, 12);
+            this.back.Name = "back";
+            this.back.Size = new System.Drawing.Size(25, 25);
+            this.back.TabIndex = 3;
+            this.back.UseVisualStyleBackColor = false;
+            this.back.Click += new System.EventHandler(this.back_Click);
+            // 
+            // title
+            // 
+            this.title.AutoSize = true;
+            this.title.BackColor = System.Drawing.Color.Transparent;
+            this.title.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.title.ForeColor = System.Drawing.Color.GreenYellow;
+            this.title.Location = new System.Drawing.Point(286, 12);
+            this.title.Name = "title";
+            this.title.Size = new System.Drawing.Size(216, 25);
+            this.title.TabIndex = 2;
+            this.title.Text = "VIRUS SIMULATION";
             // 
             // picbox
             // 
@@ -203,19 +237,6 @@
             this.desc.TabIndex = 14;
             this.desc.Text = "Graph not yet loaded.";
             // 
-            // title
-            // 
-            this.title.AutoSize = true;
-            this.title.BackColor = System.Drawing.Color.Transparent;
-            this.title.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.title.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.title.ForeColor = System.Drawing.Color.GreenYellow;
-            this.title.Location = new System.Drawing.Point(286, 12);
-            this.title.Name = "title";
-            this.title.Size = new System.Drawing.Size(216, 25);
-            this.title.TabIndex = 2;
-            this.title.Text = "VIRUS SIMULATION";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -263,5 +284,6 @@
         private System.Windows.Forms.NumericUpDown ndays;
         private System.Windows.Forms.Label desc;
         private System.Windows.Forms.Label title;
+        private System.Windows.Forms.Button back;
     }
 }

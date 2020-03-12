@@ -16,8 +16,22 @@ namespace VirusSimulation
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainFormHome());
-            Application.Run(new MainForm());
+            Properties.Settings.Default.Page = "home";
+            while (Properties.Settings.Default.Page != "exit")
+            {
+                switch (Properties.Settings.Default.Page)
+                {
+                    case "home":
+                        Application.Run(new MainFormHome());
+                        break;
+                    case "simul":
+                        Application.Run(new MainForm());
+                        break;
+                    case "credits":
+                        Application.Run(new Credits());
+                        break;
+                }
+            }
         }
     }
 }

@@ -30,5 +30,6 @@ namespace VirusSimulation.Properties
         }
 
         public Point MainForm_Location { get; internal set; }
+        public string Page { get; internal set; }
     }
 }
