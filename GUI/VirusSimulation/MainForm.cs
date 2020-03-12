@@ -126,7 +126,6 @@ namespace VirusSimulation
         private void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
             mousedownpoint = new Point(e.X, e.Y);
-            Console.WriteLine("hehe");
         }
 
         //Drag
